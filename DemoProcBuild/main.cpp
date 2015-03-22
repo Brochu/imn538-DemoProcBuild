@@ -9,6 +9,12 @@ using namespace std;
 const int WIDTH = 800;
 const int HEIGHT = 600;
 
+int lastMousex = 0;
+int lastMousey = 0;
+
+GLfloat currentXRotation = 0.0;
+GLfloat currentYRotation = 0.0;
+
 void init()
 {
     glClearColor(0.0, 0.0, 0.0, 1.0);
@@ -32,6 +38,8 @@ void drawScene()
 
     glColor3f(0.8f, 0.2f, 0.1f);
     glTranslatef(0.0, 0.0, -4.5);
+    glRotatef(currentYRotation, 1.0, 0.0, 0.0);
+    glRotatef(currentXRotation, 0.0, 1.0, 0.0);
     glScalef(1.0, 1.0, 1.0);
 
     glutSolidTeapot(0.1);
@@ -47,10 +55,34 @@ void idleCallback()
 
 void mouseClickCallback(int button, int state, int x, int y)
 {
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+    {
+        lastMousex = x;
+        lastMousey = y;
+    }
     if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
     {
-        cout << "Left mouse button is now up" << endl;
+        lastMousex = 0;
+        lastMousey = 0;
     }
+}
+
+void moveCallback(int x, int y)
+{
+    int xdiff = x - lastMousex;
+    int ydiff = y - lastMousey;
+
+    currentXRotation += xdiff;
+    currentXRotation = (int)currentXRotation % 360;
+    currentYRotation += ydiff;
+    currentYRotation = (int)currentYRotation % 360;
+
+    cout << "rotation status\nx: " << currentXRotation << "\ny: " << currentYRotation << endl;
+
+    lastMousex = x;
+    lastMousey = y;
+
+    drawScene();
 }
 
 void registerCallbacks()
@@ -59,6 +91,7 @@ void registerCallbacks()
 //     glutReshapeFunc(reshapeCallback);
     glutIdleFunc(idleCallback);
     glutMouseFunc(mouseClickCallback);
+    glutMotionFunc(moveCallback);
 }
 
 int main(int argc, char** argv)
