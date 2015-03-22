@@ -14,10 +14,11 @@ int lastMousey = 0;
 
 GLfloat currentXRotation = 0.0;
 GLfloat currentYRotation = 0.0;
+GLfloat currentSize = 0.1;
 
 void init()
 {
-    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glClearColor(0.4, 0.6, 0.9, 1.0);
 
     // Set perspective camera information
     glMatrixMode(GL_PROJECTION);
@@ -36,13 +37,13 @@ void drawScene()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
-    glColor3f(0.8f, 0.2f, 0.1f);
+    glColor3f(0.5f, 0.5f, 0.5f);
     glTranslatef(0.0, 0.0, -4.5);
     glRotatef(currentYRotation, 1.0, 0.0, 0.0);
     glRotatef(currentXRotation, 0.0, 1.0, 0.0);
     glScalef(1.0, 1.0, 1.0);
 
-    glutSolidTeapot(0.1);
+    glutSolidTeapot(currentSize);
 
     glFlush();
     glutSwapBuffers();
@@ -65,6 +66,16 @@ void mouseClickCallback(int button, int state, int x, int y)
         lastMousex = 0;
         lastMousey = 0;
     }
+    if (button == 3)
+    {
+        currentSize += 0.01f;
+    }
+    if (button == 4)
+    {
+        currentSize -= 0.01f;
+    }
+
+    drawScene();
 }
 
 void moveCallback(int x, int y)
@@ -76,8 +87,6 @@ void moveCallback(int x, int y)
     currentXRotation = (int)currentXRotation % 360;
     currentYRotation += ydiff;
     currentYRotation = (int)currentYRotation % 360;
-
-    cout << "rotation status\nx: " << currentXRotation << "\ny: " << currentYRotation << endl;
 
     lastMousex = x;
     lastMousey = y;
@@ -104,7 +113,7 @@ int main(int argc, char** argv)
     glutInitWindowSize(800, 600);
     // Create the window
     glutCreateWindow("Demo - Procedural Building Creation");
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     init();
     registerCallbacks();
