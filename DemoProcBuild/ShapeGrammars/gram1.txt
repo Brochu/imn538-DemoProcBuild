@@ -1,0 +1,2 @@
+symb1->tr(1,1,1);sc(2,2,2)I(symb2)
+symb2->tr(2,1,2);I(symb3)
