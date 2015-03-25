@@ -17,7 +17,7 @@ public:
     void debug();
 
 private:
-    ShapeGrammar* shapeGrammar; // To delete in destructor !
+    ShapeGrammar* shapeGrammar;
 
 };
 
