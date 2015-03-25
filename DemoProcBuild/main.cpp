@@ -1,5 +1,6 @@
 // OpenGL related includes
 #include <GL\glut.h>
+#include <math.h>
 
 // IO includes
 #include <iostream>
@@ -12,13 +13,13 @@ const int HEIGHT = 600;
 int lastMousex = 0;
 int lastMousey = 0;
 
-GLfloat currentXRotation = 0.0;
-GLfloat currentYRotation = 0.0;
-GLfloat currentSize = 0.1;
+GLfloat currentXRotation = (GLfloat)00.0;
+GLfloat currentYRotation = (GLfloat)00.0;
+GLfloat currentSize = (GLfloat)0.1;
 
 void init()
 {
-    glClearColor(0.4, 0.6, 0.9, 1.0);
+    glClearColor(0.4f, 0.6f, 0.9f, 1.0f);
 
     // Set perspective camera information
     glMatrixMode(GL_PROJECTION);
@@ -84,9 +85,9 @@ void moveCallback(int x, int y)
     int ydiff = y - lastMousey;
 
     currentXRotation += xdiff;
-    currentXRotation = (int)currentXRotation % 360;
+    currentXRotation = (GLfloat)((int)currentXRotation % 360);
     currentYRotation += ydiff;
-    currentYRotation = (int)currentYRotation % 360;
+    currentYRotation = (GLfloat)((int)currentYRotation % 360);
 
     lastMousex = x;
     lastMousey = y;
@@ -113,7 +114,7 @@ int main(int argc, char** argv)
     glutInitWindowSize(800, 600);
     // Create the window
     glutCreateWindow("Demo - Procedural Building Creation");
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     init();
     registerCallbacks();
