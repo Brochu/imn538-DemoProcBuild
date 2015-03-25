@@ -1,3 +1,6 @@
+#include "ShapeGrammar.h"
+#include "GrammarEngine.h"
+
 // OpenGL related includes
 #include <GL\glut.h>
 #include <math.h>
@@ -16,6 +19,9 @@ int lastMousey = 0;
 GLfloat currentXRotation = (GLfloat)00.0;
 GLfloat currentYRotation = (GLfloat)00.0;
 GLfloat currentSize = (GLfloat)0.1;
+
+ShapeGrammar* gramm;
+GrammarEngine *engine;
 
 void init()
 {
@@ -104,6 +110,22 @@ void registerCallbacks()
     glutMotionFunc(moveCallback);
 }
 
+void initGrammar()
+{
+    gramm = new ShapeGrammar("asdf");
+}
+
+void initGrammarEngine()
+{
+    // This will be used later.
+}
+
+void cleanup()
+{
+    delete gramm;
+    delete engine;
+}
+
 int main(int argc, char** argv)
 {
     // Initialize GLUT, all argmuments sent to program are needed
@@ -119,7 +141,11 @@ int main(int argc, char** argv)
     init();
     registerCallbacks();
 
+    initGrammar();
+    initGrammarEngine();
+
     // Start main loop !
     glutMainLoop();
+    cleanup();
     return 0;
 }
