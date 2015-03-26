@@ -113,12 +113,11 @@ void registerCallbacks()
 void initGrammar()
 {
     gramm = new ShapeGrammar("ShapeGrammars/gram1.txt");
-    gramm->debug();
 }
 
 void initGrammarEngine()
 {
-    // This will be used later.
+    engine = new GrammarEngine(gramm);
 }
 
 void cleanup()
