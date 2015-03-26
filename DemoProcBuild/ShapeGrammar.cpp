@@ -3,28 +3,41 @@
 ShapeGrammar::ShapeGrammar(){}
 ShapeGrammar::ShapeGrammar(char* filename)
 {
-    // Step 1 read file
-    std::ifstream file(filename, std::ifstream::in);
-
-    if (file.bad())
+    ifstream file(filename, fstream::in);
+    if (!file.good())
     {
-        cout << "Problem reading the grammar file !";
+        cout << "ERROR reading file ..." << endl;
         return;
     }
 
-    string content;
-    file >> content;
-    cout << content << endl;
-    // Ster 2 create ShapeGrammar from info in file
-        // - create rules list
-        // - create base symbol
-}
+    stringstream stream;
+    stream << file.rdbuf();
+    file.close();
 
+    stream.seekg(stringstream::beg);
+    string rule;
+
+    int ruleIdx = 0;
+    while (stream >> rule)
+    {
+        Rule r;
+        int separatorIdx = rule.find("->");
+        r.LHS = rule.substr(0, separatorIdx);
+        r.RHS = rule.substr(separatorIdx + 2, rule.size());
+
+        rules.insert(rules.end(), r);
+
+        ruleIdx++;
+    }
+}
 ShapeGrammar::~ShapeGrammar()
 {
 }
 
 void ShapeGrammar::debug()
 {
-    // Print info about grammar, rules, symbols ...
+    for (int i = 0; i < rules.size(); ++i)
+    {
+        cout << rules[i].LHS << "-->" << rules[i].RHS << endl;
+    }
 }

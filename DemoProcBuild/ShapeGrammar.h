@@ -2,8 +2,11 @@
 #define _SHAPEGRAMMAR_H_
 
 #include <string>
+#include <sstream>
 #include <iostream>
 #include <fstream>
+#include <algorithm>
+#include <vector>
 
 using namespace std;
 
@@ -22,6 +25,8 @@ private:
         string RHS;
         float prob;
     };
+
+    vector<Rule> rules;
 };
 
 #endif

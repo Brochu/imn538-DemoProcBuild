@@ -112,7 +112,8 @@ void registerCallbacks()
 
 void initGrammar()
 {
-    gramm = new ShapeGrammar("asdf");
+    gramm = new ShapeGrammar("ShapeGrammars/gram1.txt");
+    gramm->debug();
 }
 
 void initGrammarEngine()
