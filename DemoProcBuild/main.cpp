@@ -3,6 +3,7 @@
 
 // OpenGL related includes
 #include <GL\glut.h>
+#include "glm\glm.hpp"
 #include <math.h>
 
 // IO includes
@@ -118,6 +119,15 @@ void initGrammar()
 void initGrammarEngine()
 {
     engine = new GrammarEngine(gramm);
+    cout << "After creation of the GrammarEngine" << endl;
+    engine->debug();
+
+    glm::mat4 test;
+    engine->addShape(test,
+        GrammarEngine::ShapeState::nonTerminal,
+        GrammarEngine::Shape::cylinder);
+
+    engine->debug();
 }
 
 void cleanup()
