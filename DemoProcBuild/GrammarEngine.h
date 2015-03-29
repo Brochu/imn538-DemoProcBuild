@@ -4,6 +4,7 @@
 #include "ShapeGrammar.h"
 #include <string>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -15,9 +16,12 @@ public:
     ~GrammarEngine();
 
     void debug();
+    void drawShapes();
 
 private:
     ShapeGrammar* shapeGrammar;
+    vector<ShapeInfo> nonTerminals;
+    vector<ShapeInfo> terminals;
 
 };
 
