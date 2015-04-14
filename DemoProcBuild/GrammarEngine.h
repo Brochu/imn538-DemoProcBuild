@@ -27,20 +27,23 @@ public:
         sphere = 2
     };
 
+    struct ShapeInfo{
+        glm::mat4 transInfo;
+        Shape type;
+        bool active;
+        // 0 = cube;
+        // 1 = cylinder
+        // 2 = sphere
+    };
+
     void debug();
     void addShape(glm::mat4&, ShapeState, Shape);
+    ShapeInfo& selectNextShape();
     void drawShapes();
 
 private:
     ShapeGrammar* shapeGrammar;
 
-    struct ShapeInfo{
-        glm::mat4 transInfo;
-        Shape type;
-        // 0 = cube;
-        // 1 = cylinder
-        // 2 = sphere
-    };
     vector<ShapeInfo> nonTerminals;
     vector<ShapeInfo> terminals;
 

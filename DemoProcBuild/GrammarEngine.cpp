@@ -30,8 +30,20 @@ void GrammarEngine::addShape(glm::mat4& transValues, ShapeState state, Shape s)
     ShapeInfo si;
     si.transInfo = transValues;
     si.type = s;
+    si.active = true;
 
     toadd->insert(toadd->end(), si);
+}
+
+GrammarEngine::ShapeInfo& GrammarEngine::selectNextShape()
+{
+    vector<ShapeInfo>::iterator i;
+    for (i = nonTerminals.begin(); i != nonTerminals.end(); ++i)
+    {
+        if (i->active)
+            return (*i);
+    }
+    return nonTerminals[0];
 }
 
 void GrammarEngine::drawShapes()
